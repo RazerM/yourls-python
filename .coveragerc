@@ -1,0 +1,13 @@
+[run]
+branch=True
+source=
+    yourls
+
+[paths]
+source=
+    yourls
+    .tox/*/lib/python*/site-packages/yourls
+
+[report]
+exclude_lines=
+	return NotImplemented
