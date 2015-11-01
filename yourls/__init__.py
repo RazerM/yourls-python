@@ -7,9 +7,9 @@ from .exc import (
     YOURLSNoLoopError, YOURLSNoURLError, YOURLSURLExistsError)
 
 __author__ = 'Frazer McLean <frazer@frazermclean.co.uk>'
-__version__ = '0.1.0'
+__version__ = '1.0.0'
 __license__ = 'MIT'
-__description__ = 'Python API for YOURLS.'
+__description__ = 'Python client for YOURLS.'
 
 __all__ = (
     'DBStats',
