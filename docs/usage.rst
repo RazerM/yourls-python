@@ -104,8 +104,8 @@ In our example, we would see the following output:
 API Plugins
 -----------
 
-If you want to support YOURLS plugins that add API methods (e.g. `API Delete`_),
-the following is the recommended way to do so.
+If you want to support YOURLS plugins that add API methods
+(e.g. `API Delete`_), the following is the recommended way to do so.
 
 .. code-block:: python
 
