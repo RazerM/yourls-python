@@ -51,10 +51,10 @@ setup(
     name='yourls',
     version=VERSION,
     description=DESCRIPTION,
-    # long_description=open('README.rst').read(),
+    long_description=open('README.rst').read(),
     author=AUTHOR,
     author_email=EMAIL,
-    url='https://github.com/razerm/python-yourls',
+    url='https://github.com/razerm/yourls-python',
     packages=find_packages(),
     classifiers=[
         'Development Status :: 4 - Beta',

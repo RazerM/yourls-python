@@ -32,20 +32,20 @@ Documentation
 ~~~~~~~~~~~~~
 
 For in-depth information, `visit the
-documentation <http://python-yourls.readthedocs.org/en/latest/>`__!
+documentation <http://yourls-python.readthedocs.org/en/latest/>`__!
 
 Development
 ~~~~~~~~~~~
 
-.. |Travis| image:: http://img.shields.io/travis/razerm/python-yourls/master.svg?style=flat-square&label=travis
-   :target: https://travis-ci.org/razerm/python-yourls
+.. |Travis| image:: http://img.shields.io/travis/razerm/yourls-python/master.svg?style=flat-square&label=travis
+   :target: https://travis-ci.org/razerm/yourls-python
 .. |PyPI Version| image:: http://img.shields.io/pypi/v/yourls.svg?style=flat-square
    :target: https://pypi.python.org/pypi/yourls/
 .. |Python Version| image:: https://img.shields.io/badge/python-2.7%2C%203-brightgreen.svg?style=flat-square
    :target: https://www.python.org/downloads/
 .. |MIT License| image:: http://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
-   :target: https://raw.githubusercontent.com/razerm/python-yourls/master/LICENSE
-.. |Coverage| image:: https://img.shields.io/codecov/c/github/razerm/python-yourls/master.svg?style=flat-square
-   :target: https://codecov.io/github/python-yourls?branch=master
+   :target: https://raw.githubusercontent.com/razerm/yourls-python/master/LICENSE
+.. |Coverage| image:: https://img.shields.io/codecov/c/github/razerm/yourls-python/master.svg?style=flat-square
+   :target: https://codecov.io/github/yourls-python?branch=master
 .. |Documentation| image:: https://img.shields.io/badge/docs-latest-brightgreen.svg?style=flat-square
-   :target: http://python-yourls.readthedocs.org/en/latest/
+   :target: http://yourls-python.readthedocs.org/en/latest/
