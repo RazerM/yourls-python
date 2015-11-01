@@ -1,10 +1,12 @@
 # coding: utf-8
 from __future__ import absolute_import, division, print_function
 
-from .core import DBStats, ShortenedURL, YOURLSClient, logger
+from .api import DBStats, ShortenedURL
+from .core import YOURLSAPIMixin, YOURLSClient, YOURLSClientBase
 from .exc import (
     YOURLSAPIError, YOURLSHTTPError, YOURLSKeywordExistsError,
     YOURLSNoLoopError, YOURLSNoURLError, YOURLSURLExistsError)
+from .log import logger
 
 __author__ = 'Frazer McLean <frazer@frazermclean.co.uk>'
 __version__ = '1.0.0'
@@ -16,7 +18,9 @@ __all__ = (
     'logger',
     'ShortenedURL',
     'YOURLSAPIError',
+    'YOURLSAPIMixin',
     'YOURLSClient',
+    'YOURLSClientBase',
     'YOURLSHTTPError',
     'YOURLSKeywordExistsError',
     'YOURLSNoLoopError',

@@ -299,6 +299,7 @@ texinfo_documents = [
 # intersphinx
 intersphinx_mapping = {
     'python': ('http://docs.python.org/3', None),
+    'logbook': ('http://pythonhosted.org/Logbook', None),
     'requests': ('http://docs.python-requests.org/en/latest/', None),
 }
 
