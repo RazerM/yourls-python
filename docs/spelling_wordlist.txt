@@ -1,5 +1,10 @@
+api
 indices
+initialiser
+mixin
 organisational
+plugins
+refactored
 timestamp
 tuple
 unhandled
