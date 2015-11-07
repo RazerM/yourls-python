@@ -84,9 +84,10 @@ class YOURLSAPIMixin(object):
         """Expand short URL or keyword to long URL.
 
         Parameters:
-            short: Short URL (http://example.com/abc) or keyword (abc).
+            short: Short URL (``http://example.com/abc``) or keyword (abc).
 
-        :return: Expanded/long URL, e.g. https://www.youtube.com/watch?v=dQw4w9WgXcQ
+        :return: Expanded/long URL, e.g.
+                 ``https://www.youtube.com/watch?v=dQw4w9WgXcQ``
 
         Raises:
             ~yourls.exceptions.YOURLSHTTPError: HTTP error with response from
