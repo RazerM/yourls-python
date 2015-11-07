@@ -74,6 +74,50 @@ The main functionality is shown here:
     >>> yourls.db_stats()
     DBStats(total_clicks=1234, total_links=5678)
 
+.. _exception-handling:
+
+Exception Handling
+------------------
+
+The :py:class:`YOURLSClient` methods can raise several exceptions. With the
+exception of :py:class:`~yourls.exceptions.YOURLSURLExistsError` and
+:py:class:`~yourls.exceptions.YOURLSKeywordExistsError`, they all inherit from
+:py:class:`requests.HTTPError`, so it's not necessary to catch all the
+exceptions individually if you just want to display the error to the user:
+
+.. code-block:: python
+
+    try:
+        shorturl = yourls.shorten(url, keyword=keyword)
+    except YOURLSURLExistsError as exc:
+        shorturl = exc.url
+    except YOURLSKeywordExistsError as exc:
+        print("Keyword '{}' already exists.".format(exc.keyword))
+    except requests.HTTPError as exc:
+        print(exc.args[0])
+
+.. seealso::
+
+    Requests itself can raise more exceptions, so you might want to catch
+    :class:`requests.exceptions.RequestException`.
+
+    `Errors and Exceptions: <http://docs.python-requests.org/en/latest/user/quickstart/#errors-and-exceptions>`_
+        In the event of a network problem (e.g. DNS failure, refused connection,
+        etc), Requests will raise a :class:`~requests.exceptions.ConnectionError`
+        exception.
+
+        In the rare event of an invalid HTTP response, Requests will raise an
+        :class:`~requests.exceptions.HTTPError` exception.
+
+        If a request times out, a :class:`~requests.exceptions.Timeout` exception
+        is raised.
+
+        If a request exceeds the configured number of maximum redirections, a
+        :class:`~requests.exceptions.TooManyRedirects` exception is raised.
+
+        All exceptions that Requests explicitly raises inherit from
+        :class:`requests.exceptions.RequestException`.
+
 Logging
 -------
 
