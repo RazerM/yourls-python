@@ -8,7 +8,7 @@ import six
 from represent import ReprHelperMixin
 from requests import HTTPError
 
-from .exc import (
+from .exceptions import (
     YOURLSAPIError, YOURLSHTTPError, YOURLSKeywordExistsError,
     YOURLSNoLoopError, YOURLSNoURLError, YOURLSURLExistsError)
 from .log import logger

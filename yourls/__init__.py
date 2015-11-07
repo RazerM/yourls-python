@@ -1,9 +1,9 @@
 # coding: utf-8
 from __future__ import absolute_import, division, print_function
 
-from .api import DBStats, ShortenedURL
 from .core import YOURLSAPIMixin, YOURLSClient, YOURLSClientBase
-from .exc import (
+from .data import DBStats, ShortenedURL
+from .exceptions import (
     YOURLSAPIError, YOURLSHTTPError, YOURLSKeywordExistsError,
     YOURLSNoLoopError, YOURLSNoURLError, YOURLSURLExistsError)
 from .log import logger

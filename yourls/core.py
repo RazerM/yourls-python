@@ -3,7 +3,7 @@ from __future__ import absolute_import, division, print_function
 
 import requests
 
-from .api import (
+from .data import (
     DBStats, _json_to_shortened_url, _validate_yourls_response)
 
 
@@ -47,28 +47,31 @@ class YOURLSAPIMixin(object):
             ShortenedURL: Shortened URL and associated data.
 
         Raises:
-            ~yourls.exc.YOURLSKeywordExistsError: The passed keyword already exists.
+            ~yourls.exceptions.YOURLSKeywordExistsError: The passed keyword
+                already exists.
 
                 .. note::
 
                     This exception has a ``keyword`` attribute.
 
-            ~yourls.exc.YOURLSURLExistsError: The URL has already been shortened.
+            ~yourls.exceptions.YOURLSURLExistsError: The URL has already been
+                shortened.
 
                 .. note::
 
                     This exception has a ``url`` attribute, which is an instance
                     of :py:class:`ShortenedURL` for the existing short URL.
 
-            ~yourls.exc.YOURLSNoURLError: URL missing.
+            ~yourls.exceptions.YOURLSNoURLError: URL missing.
 
-            ~yourls.exc.YOURLSNoLoopError: Cannot shorten a shortened URL.
+            ~yourls.exceptions.YOURLSNoLoopError: Cannot shorten a shortened URL.
 
-            ~yourls.exc.YOURLSAPIError: Unhandled API error.
+            ~yourls.exceptions.YOURLSAPIError: Unhandled API error.
 
-            ~yourls.exc.YOURLSHTTPError: HTTP error with response from YOURLS API.
+            ~yourls.exceptions.YOURLSHTTPError: HTTP error with response from
+                YOURLS API.
 
-            requests.HTTPError: Generic HTTP error.
+            requests.exceptions.HTTPError: Generic HTTP error.
         """
         data = dict(action='shorturl', url=url, keyword=keyword, title=title)
         jsondata = self._api_request(params=data)
@@ -86,8 +89,9 @@ class YOURLSAPIMixin(object):
         :return: Expanded/long URL, e.g. https://www.youtube.com/watch?v=dQw4w9WgXcQ
 
         Raises:
-            ~yourls.exc.YOURLSHTTPError: HTTP error with response from YOURLS API.
-            requests.HTTPError: Generic HTTP error.
+            ~yourls.exceptions.YOURLSHTTPError: HTTP error with response from
+                YOURLS API.
+            requests.exceptions.HTTPError: Generic HTTP error.
         """
         data = dict(action='expand', shorturl=short)
         jsondata = self._api_request(params=data)
@@ -104,8 +108,9 @@ class YOURLSAPIMixin(object):
             ShortenedURL: Shortened URL and associated data.
 
         Raises:
-            ~yourls.exc.YOURLSHTTPError: HTTP error with response from YOURLS API.
-            requests.HTTPError: Generic HTTP error.
+            ~yourls.exceptions.YOURLSHTTPError: HTTP error with response from
+                YOURLS API.
+            requests.exceptions.HTTPError: Generic HTTP error.
         """
         data = dict(action='url-stats', shorturl=short)
         jsondata = self._api_request(params=data)
@@ -131,7 +136,7 @@ class YOURLSAPIMixin(object):
 
         Raises:
             ValueError: Incorrect value for filter parameter.
-            requests.HTTPError: Generic HTTP Error
+            requests.exceptions.HTTPError: Generic HTTP Error
         """
         # Normalise random to rand, even though it's accepted by API.
         if filter == 'random':
@@ -164,7 +169,7 @@ class YOURLSAPIMixin(object):
             DBStats: Total clicks and links statistics.
 
         Raises:
-            requests.HTTPError: Generic HTTP Error
+            requests.exceptions.HTTPError: Generic HTTP Error
         """
         data = dict(action='db-stats')
         jsondata = self._api_request(params=data)

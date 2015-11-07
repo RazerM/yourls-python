@@ -46,7 +46,7 @@ class YOURLSURLExistsError(YOURLSAPIError):
 
     .. attribute:: url
 
-       Instance of :py:class:`ShortenedURL` for existing URL.
+       Instance of :py:class:`~yourls.data.ShortenedURL` for existing URL.
     """
     def __init__(self, *args, **kwargs):
         self.url = kwargs.pop('url')

@@ -9,6 +9,7 @@ Core
 
 .. automodule:: yourls.core
    :members:
+   :show-inheritance:
 
 Inheritance diagram
 ===================
