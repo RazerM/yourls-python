@@ -19,6 +19,7 @@ DESCRIPTION = metadata['description']
 AUTHOR, EMAIL = re.match(r'(.*) <(.*)>', AUTHOR_EMAIL).groups()
 
 requires = [
+    'click',
     'logbook>=0.10.0',
     'represent>=1.4.0',
     'requests',
@@ -64,4 +65,8 @@ setup(
     ],
     license=LICENSE,
     install_requires=requires,
-    extras_require=extras_require)
+    extras_require=extras_require,
+    entry_points='''
+        [console_scripts]
+        yourls=yourls.__main__:cli
+    ''')

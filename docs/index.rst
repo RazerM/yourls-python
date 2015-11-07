@@ -8,6 +8,7 @@ Contents:
    :maxdepth: 3
 
    usage
+   cli
    module
    changelog
 
