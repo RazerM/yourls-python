@@ -1,7 +1,13 @@
 # Change Log
 
 ## [Unreleased][unreleased]
-N/A
+### Added
+- [Command line interface](http://yourls-python.readthedocs.org/en/latest/cli.html).
+- Documentation section on exception handling.
+
+### Changed
+- Rename `yourls.api` sub-module to `yourls.data`.
+- Rename `yourls.exc` sub-module to `yourls.exceptions`. Users should be importing directly from `yourls` anyway.
 
 ## [1.0.1] - 2015-11-01
 ### Added
