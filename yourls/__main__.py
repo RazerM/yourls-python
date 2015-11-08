@@ -53,8 +53,10 @@ def cli(ctx, apiurl, signature, username, password):
     Configuration parameters can be passed as switches or stored in .yourls or
     ~/.yourls.
 
+    If your YOURLS server requires authentication, please provide one of the
+    following:
+
     \b
-    Please provide one of the following:
     • apiurl and signature
     • apiurl, username, and password
 
@@ -67,16 +69,14 @@ def cli(ctx, apiurl, signature, username, password):
     """
     if apiurl is None:
         raise click.UsageError("apiurl missing. See 'yourls --help'")
-    if signature is None and (username is None or password is None):
-        raise click.UsageError("authentication paremeter(s) missing. "
-                               "See 'yourls --help'")
-    if signature is not None and (username is not None or password is not None):
+
+    auth_params = dict(signature=signature, username=username, password=password)
+
+    try:
+        ctx.obj = YOURLSClient(apiurl=apiurl, **auth_params)
+    except TypeError:
         raise click.UsageError("authentication paremeters overspecified. "
                                "See 'yourls --help'")
-    if signature:
-        ctx.obj = YOURLSClient(apiurl=apiurl, signature=signature)
-    else:
-        ctx.obj = YOURLSClient(apiurl=apiurl, username=username, password=password)
 
 
 @cli.command()
