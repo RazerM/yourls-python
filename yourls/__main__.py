@@ -41,7 +41,7 @@ def catch_exceptions():
         raise click.ClickException(error_msg)
 
 
-@click.group('blah')
+@click.group()
 @click.option('--apiurl', default=config_value('apiurl'))
 @click.option('--signature', default=config_value('signature'))
 @click.option('--username', default=config_value('username'))
