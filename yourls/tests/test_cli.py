@@ -29,7 +29,7 @@ def test_cli(set_defaults, capsys):
     patch_shorten = patch('yourls.core.YOURLSAPIMixin.shorten', autospec=True)
 
     with patch_argv, patch_shorten as mock_shorten:
-        with pytest.raises(SystemExit) as exc_info:
+        with pytest.raises(SystemExit):
             main()
         _, err = capsys.readouterr()
         assert 'apiurl missing' in err
@@ -39,24 +39,25 @@ def test_cli(set_defaults, capsys):
     patch_argv = patch.object(sys, 'argv', argv)
 
     with patch_argv, patch_shorten as mock_shorten:
-        with pytest.raises(SystemExit) as exc_info:
+        with pytest.raises(SystemExit):
             main()
         out, err = capsys.readouterr()
         assert 'authentication paremeters overspecified' in err
         assert not mock_shorten.called
+
 
 def test_shorten(set_defaults, capsys):
     argv = ['', '--apiurl', 'http://example.com/yourls-api.php', 'shorten',
             'http://google.com']
 
     shorturl = ShortenedURL(
-            shorturl='http://example.com/abcde',
-            url='http://google.com',
-            title='Google',
-            date=datetime.datetime(2015, 10, 31, 14, 31, 4),
-            ip='203.0.113.0',
-            clicks=0,
-            keyword='abcde')
+        shorturl='http://example.com/abcde',
+        url='http://google.com',
+        title='Google',
+        date=datetime.datetime(2015, 10, 31, 14, 31, 4),
+        ip='203.0.113.0',
+        clicks=0,
+        keyword='abcde')
 
     patch_argv = patch.object(sys, 'argv', argv)
     patch_shorten = patch(

@@ -2,6 +2,7 @@
 from __future__ import absolute_import, division, print_function
 
 import re
+import sys
 
 from setuptools import setup, find_packages
 
@@ -47,6 +48,8 @@ extras_require = {
     ],
 }
 
+if sys.version_info[:2] < (3, 3):
+    extras_require['dev'].append('mock')
 
 setup(
     name='yourls',
