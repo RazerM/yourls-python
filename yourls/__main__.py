@@ -133,15 +133,10 @@ def expand(yourls, shorturl):
 
 @cli.command('url-stats')
 @click.argument('shorturl')
-@click.option('--simple', '-s', is_flag=True,
-              help='Print short URL instead of full ShortenedURL object')
 @click.pass_obj
-def url_stats(yourls, shorturl, simple):
+def url_stats(yourls, shorturl):
     with catch_exceptions():
         shorturl = yourls.url_stats(shorturl)
-
-    if simple:
-        shorturl = shorturl.shorturl
 
     click.echo(shorturl)
 
