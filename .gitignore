@@ -58,3 +58,12 @@ target/
 
 # OS X
 .DS_Store
+
+# IDE / Editor
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# pyenv / venv
+.python-version
+.venv
