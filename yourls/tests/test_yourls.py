@@ -24,6 +24,28 @@ def make_url(yourls, params):
     return requests.Request('GET', yourls.apiurl, params=params).prepare().url
 
 
+def test_authentication_parameters():
+
+    apiurl = 'http://example.com/yourls-api.php'
+
+    # Public server requires no authentication, shouldn't raise an exception
+    YOURLSClient(apiurl)
+
+    # signature or username and password is correct way to authenticate
+    YOURLSClient(apiurl, signature='abcdefghij')
+    YOURLSClient(apiurl, username='user', password='pass')
+
+    # Specifying signature and username of password is incorrect
+    with pytest.raises(TypeError):
+        YOURLSClient(apiurl, signature='abcdefghij', username='user', password='pass')
+
+    with pytest.raises(TypeError):
+        YOURLSClient(apiurl, signature='abcdefghij', username='user')
+
+    with pytest.raises(TypeError):
+        YOURLSClient(apiurl, signature='abcdefghij', password='pass')
+
+
 @responses.activate
 def test_shorten_new(yourls):
     url = 'http://google.com'
@@ -260,7 +282,7 @@ def test_url_stats_missing(yourls):
 
 @responses.activate
 def test_stats(yourls):
-    params = dict(action='stats', filter='bottom', limit=3)
+    params = dict(action='stats', filter='rand', limit=3)
 
     json_response = {
         'message': 'success',
@@ -301,7 +323,7 @@ def test_stats(yourls):
     responses.add(GET, query_url, json=json_response, status=200,
                   match_querystring=True)
 
-    links, stats = yourls.stats(filter='bottom', limit=3)
+    links, stats = yourls.stats(filter='random', limit=3)
 
     assert links == [
         ShortenedURL(
@@ -329,6 +351,31 @@ def test_stats(yourls):
             clicks=27,
             keyword=None)
     ]
+
+    assert stats == DBStats(total_links=200, total_clicks=5000)
+
+
+@responses.activate
+def test_stats_zero(yourls):
+    params = dict(action='stats', filter='top', limit=0)
+
+    json_response = {
+        'message': 'success',
+        'stats': {
+            'total_links': '200',
+            'total_clicks': '5000'
+        },
+        'links': {},
+        'statusCode': 200
+    }
+
+    query_url = make_url(yourls, params=params)
+    responses.add(GET, query_url, json=json_response, status=200,
+                  match_querystring=True)
+
+    links, stats = yourls.stats(filter='top', limit=0)
+
+    assert links == []
 
     assert stats == DBStats(total_links=200, total_clicks=5000)
 
