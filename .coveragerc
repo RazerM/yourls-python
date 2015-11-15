@@ -11,3 +11,4 @@ source=
 [report]
 exclude_lines=
 	return NotImplemented
+	if __name__ == '__main__':
