@@ -1,10 +1,19 @@
 Change Log
 ==========
 
-`Unreleased <https://github.com/RazerM/yourls-python/compare/1.1.0...HEAD>`__
+`Unreleased <https://github.com/RazerM/yourls-python/compare/1.1.1...HEAD>`__
 -----------------------------------------------------------------------------
 
 N/A
+
+[1.1.1]
+-------
+
+Fixed
+~~~~~
+
+-  Fixed CLI on Python 2 due to incorrect use of ``ConfigParser``.
+-  Incorrect ``ConfigParser`` import.
 
 `1.1.0 <https://github.com/RazerM/yourls-python/compare/1.0.1...1.1.0>`__
 -------------------------------------------------------------------------
