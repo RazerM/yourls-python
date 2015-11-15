@@ -1,5 +1,13 @@
 # coding: utf-8
 from __future__ import absolute_import, division, print_function
+
+import os.path
+from contextlib import contextmanager
+
+import click
+import requests
+from yourls import YOURLSAPIError, YOURLSClient, YOURLSURLExistsError
+
 """yourls
 
 Usage:
@@ -14,13 +22,13 @@ Options:
   -t <title>, --title <title>
   -s <start>, --start <start>  Filter start number
 """
-import os.path
-from contextlib import contextmanager
 
-import click
-import requests
-from configparser import ConfigParser
-from yourls import YOURLSClient, YOURLSURLExistsError, YOURLSAPIError
+
+try:
+    from configparser import ConfigParser
+except ImportError:
+    from ConfigParser import SafeConfigParser as ConfigParser
+
 
 config = ConfigParser()
 config_paths = ['.yourls', os.path.expanduser('~/.yourls')]
