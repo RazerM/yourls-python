@@ -154,7 +154,7 @@ def _validate_yourls_response(response, data):
         logger.debug('Received {response} with JSON {json}', response=response,
                      json=jsondata)
 
-        if 'status' in jsondata and 'code' in jsondata:
+        if {'status', 'code', 'message'} <= set(jsondata.keys()):
             status = jsondata['status']
             code = jsondata['code']
             message = jsondata['message']

@@ -8,7 +8,7 @@ import requests
 import responses
 from responses import GET
 from yourls import (
-    DBStats, ShortenedURL, YOURLSClient, YOURLSHTTPError,
+    DBStats, ShortenedURL, YOURLSAPIError, YOURLSClient, YOURLSHTTPError,
     YOURLSKeywordExistsError, YOURLSNoLoopError, YOURLSNoURLError,
     YOURLSURLExistsError)
 
@@ -431,3 +431,97 @@ def test_repr():
     stats = DBStats(total_clicks=5000, total_links=200)
     reprstr = 'DBStats(total_clicks=5000, total_links=200)'
     assert repr(stats) == reprstr
+
+
+@responses.activate
+def test_unknown_json_errors(yourls):
+    params = dict(action='shorturl', url='http://google.com')
+
+    json_response = {
+        'status': 'fail',
+        'message': 'The error is fictitious.',
+        'code': 'error:madeuperror',
+        'errorCode': '400'
+    }
+
+    query_url = make_url(yourls, params=params)
+    responses.add(GET, query_url, json=json_response, status=400,
+                  match_querystring=True)
+
+    with pytest.raises(YOURLSHTTPError):
+        yourls.shorten('http://google.com')
+
+    params = dict(action='shorturl', url='http://bbc.co.uk')
+
+    json_response = {
+        'status': 'fail',
+        'errorCode': '400'
+    }
+
+    query_url = make_url(yourls, params=params)
+    responses.add(GET, query_url, json=json_response, status=400,
+                  match_querystring=True)
+
+    with pytest.raises(YOURLSHTTPError):
+        yourls.shorten('http://bbc.co.uk')
+
+    params = dict(action='shorturl', url='http://gov.uk')
+
+    json_response = {
+        'title': 'Google',
+        'url': {
+            'keyword': 'abcde',
+            'ip': '203.0.113.0',
+            'title': 'Google',
+            'url': 'http://google.com',
+            'date': '2015-01-01 14:31:04',
+            'clicks': '123'
+        },
+        'statusCode': 200,
+        'code': 'error:dragons',
+        'status': 'fail',
+        'message': 'http://google.com already exists in database',
+        'shorturl': 'http://example.com/abcde'
+    }
+
+    query_url = make_url(yourls, params=params)
+    responses.add(GET, query_url, json=json_response, status=200,
+                  match_querystring=True)
+
+    with pytest.raises(YOURLSAPIError):
+        yourls.shorten('http://gov.uk')
+
+    params = dict(action='shorturl', url='http://youtube.com')
+
+    json_response = {
+        'message': 'http://google.com added to database',
+        'shorturl': 'http://example.com/abcde',
+        'url': {
+            'keyword': 'abcde',
+            'ip': '203.0.113.0',
+            'title': 'Google',
+            'url': 'http://google.com',
+        },
+        'status': 'success',
+        'title': 'Google',
+        'statusCode': 200
+    }
+
+    query_url = make_url(yourls, params=params)
+    responses.add(GET, query_url, json=json_response, status=200,
+                  match_querystring=True)
+
+    with pytest.raises(YOURLSAPIError):
+        yourls.shorten('http://youtube.com')
+
+
+@responses.activate
+def test_unknown_errors(yourls):
+    params = dict(action='shorturl', url='http://google.com')
+
+    query_url = make_url(yourls, params=params)
+    responses.add(GET, query_url, body='', status=400,
+                  match_querystring=True)
+
+    with pytest.raises(requests.HTTPError):
+        yourls.shorten('http://google.com')
