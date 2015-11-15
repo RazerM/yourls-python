@@ -1,10 +1,27 @@
 Change Log
 ==========
 
-`Unreleased <https://github.com/RazerM/yourls-python/compare/1.0.1...HEAD>`__
+`Unreleased <https://github.com/RazerM/yourls-python/compare/1.1.0...HEAD>`__
 -----------------------------------------------------------------------------
 
 N/A
+
+`1.1.0 <https://github.com/RazerM/yourls-python/compare/1.0.1...1.1.0>`__
+-------------------------------------------------------------------------
+
+Added
+~~~~~
+
+-  `Command line
+   interface <http://yourls-python.readthedocs.org/en/latest/cli.html>`__.
+-  Documentation section on exception handling.
+
+Changed
+~~~~~~~
+
+-  Rename ``yourls.api`` sub-module to ``yourls.data``.
+-  Rename ``yourls.exc`` sub-module to ``yourls.exceptions``. Users
+   should be importing directly from ``yourls`` anyway.
 
 `1.0.1 <https://github.com/RazerM/yourls-python/compare/1.0.0...1.0.1>`__ - 2015-11-01
 --------------------------------------------------------------------------------------

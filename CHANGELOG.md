@@ -1,6 +1,9 @@
 # Change Log
 
 ## [Unreleased][unreleased]
+N/A
+
+## [1.1.0]
 ### Added
 - [Command line interface](http://yourls-python.readthedocs.org/en/latest/cli.html).
 - Documentation section on exception handling.
@@ -21,6 +24,7 @@
 
 First release.
 
-[unreleased]: https://github.com/RazerM/yourls-python/compare/1.0.1...HEAD
+[unreleased]: https://github.com/RazerM/yourls-python/compare/1.1.0...HEAD
+[1.1.0]: https://github.com/RazerM/yourls-python/compare/1.0.1...1.1.0
 [1.0.1]: https://github.com/RazerM/yourls-python/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/RazerM/yourls-python/compare/0ef60c1cef3979df819c8f7c0819f1ca052368f6...1.0.0
