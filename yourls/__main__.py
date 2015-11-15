@@ -2,6 +2,7 @@
 from __future__ import absolute_import, division, print_function
 
 import os.path
+import sys
 from contextlib import contextmanager
 
 import click
@@ -23,11 +24,13 @@ Options:
   -s <start>, --start <start>  Filter start number
 """
 
-
-try:
-    from configparser import ConfigParser
-except ImportError:
-    from ConfigParser import SafeConfigParser as ConfigParser
+if sys.version_info >= (3, 2):
+    from configparser import ConfigParser, NoOptionError
+else:
+    try:
+        from ConfigParser import SafeConfigParser as ConfigParser, NoOptionError
+    except ImportError:
+        from configparser import SafeConfigParser as ConfigParser, NoOptionError
 
 
 config = ConfigParser()
@@ -37,7 +40,12 @@ config.read(config_paths)
 
 def config_value(name):
     """Return callable that returns config value if it exists."""
-    return lambda: config.get('yourls', name, fallback=None)
+    def get():
+        try:
+            return config.get('yourls', name)
+        except NoOptionError:
+            return None
+    return get
 
 
 @contextmanager
