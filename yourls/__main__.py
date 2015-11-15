@@ -160,5 +160,9 @@ def db_stats(yourls):
         stats = yourls.db_stats()
     click.echo(stats)
 
-if __name__ == '__main__':
+
+def main():
     cli(prog_name='yourls')
+
+if __name__ == '__main__':
+    main()
