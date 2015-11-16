@@ -127,6 +127,35 @@ def test_shorten(set_defaults, capsys):
         assert err == 'Error: Unknown error\n'
 
 
+def test_shorten_switches(set_defaults):
+    argv = ['', '--apiurl', 'http://example.com/yourls-api.php', 'shorten',
+            'http://google.com', '--keyword', 'keyword', '--title', 'title']
+
+    patch_argv = patch.object(sys, 'argv', argv)
+    patch_shorten = patch('yourls.core.YOURLSAPIMixin.shorten', autospec=True)
+
+    with patch_argv, patch_shorten as mock_shorten:
+        with pytest.raises(SystemExit):
+            main()
+
+        assert mock_shorten.call_args[0][1] == 'http://google.com'
+        assert mock_shorten.call_args[1] == {
+            'keyword': 'keyword', 'title': 'title'}
+
+    argv = ['', '--apiurl', 'http://example.com/yourls-api.php', 'shorten',
+            'http://google.com', '-k', 'keyword', '-t', 'title']
+
+    patch_argv = patch.object(sys, 'argv', argv)
+
+    with patch_argv, patch_shorten as mock_shorten:
+        with pytest.raises(SystemExit):
+            main()
+
+        assert mock_shorten.call_args[0][1] == 'http://google.com'
+        assert mock_shorten.call_args[1] == {
+            'keyword': 'keyword', 'title': 'title'}
+
+
 def test_expand(set_defaults, capsys):
     argv = ['', '--apiurl', 'http://example.com/yourls-api.php', 'expand',
             'http://example.com/abcde']
@@ -265,6 +294,34 @@ def test_stats(set_defaults, capsys):
             "http://example.com/123de\n")
         assert expected == out
         assert mock_stats.call_count == 1
+
+
+def test_stats_switches(set_defaults):
+    argv = ['', '--apiurl', 'http://example.com/yourls-api.php', 'stats',
+            'bottom', '117', '--start', '23']
+
+    patch_argv = patch.object(sys, 'argv', argv)
+    patch_stats = patch('yourls.core.YOURLSAPIMixin.stats', autospec=True,
+                        return_value=([], None))
+
+    with patch_argv, patch_stats as mock_stats:
+        with pytest.raises(SystemExit):
+            main()
+
+        assert mock_stats.call_args[1] == {
+            'filter': 'bottom', 'limit': 117, 'start': 23}
+
+    argv = ['', '--apiurl', 'http://example.com/yourls-api.php', 'stats',
+            'bottom', '117', '-b', '23']
+
+    patch_argv = patch.object(sys, 'argv', argv)
+
+    with patch_argv, patch_stats as mock_stats:
+        with pytest.raises(SystemExit):
+            main()
+
+        assert mock_stats.call_args[1] == {
+            'filter': 'bottom', 'limit': 117, 'start': 23}
 
 
 def test_db_stats(set_defaults, capsys):
