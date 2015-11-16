@@ -1,6 +1,9 @@
 # Change Log
 
 ## [Unreleased][unreleased]
+N/A
+
+## [1.2.0] - 2015-11-16
 ### Changed
 - Nicer CLI output for `ShortenedURL` and `DBStats` objects.
 
@@ -8,12 +11,12 @@
 - `NoSectionError` with blank configuration file ([#2])
 - Short option for `--start` when calling `yourls stats` changed to `-b` to prevent conflict with `-s` for `--simple` ([#1]).
 
-## [1.1.1]
+## [1.1.1] - 2015-11-15
 ### Fixed
 - Fixed CLI on Python 2 due to incorrect use of `ConfigParser`.
 - Incorrect `ConfigParser` import.
 
-## [1.1.0]
+## [1.1.0] - 2015-11-15
 ### Added
 - [Command line interface](http://yourls-python.readthedocs.org/en/latest/cli.html).
 - Documentation section on exception handling.
@@ -34,7 +37,8 @@
 
 First release.
 
-[unreleased]: https://github.com/RazerM/yourls-python/compare/1.1.1...HEAD
+[unreleased]: https://github.com/RazerM/yourls-python/compare/1.2.0...HEAD
+[1.2.0]: https://github.com/RazerM/yourls-python/compare/1.1.1...1.2.0
 [1.1.1]: https://github.com/RazerM/yourls-python/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/RazerM/yourls-python/compare/1.0.1...1.1.0
 [1.0.1]: https://github.com/RazerM/yourls-python/compare/1.0.0...1.0.1

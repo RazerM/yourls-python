@@ -9,7 +9,7 @@ from .exceptions import (
 from .log import logger
 
 __author__ = 'Frazer McLean <frazer@frazermclean.co.uk>'
-__version__ = '1.1.1'
+__version__ = '1.2.0'
 __license__ = 'MIT'
 __description__ = 'Python client for YOURLS.'
 

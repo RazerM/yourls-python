@@ -1,13 +1,30 @@
 Change Log
 ==========
 
-`Unreleased <https://github.com/RazerM/yourls-python/compare/1.1.1...HEAD>`__
+`Unreleased <https://github.com/RazerM/yourls-python/compare/1.2.0...HEAD>`__
 -----------------------------------------------------------------------------
 
 N/A
 
-[1.1.1]
--------
+`1.2.0 <https://github.com/RazerM/yourls-python/compare/1.1.1...1.2.0>`__ - 2015-11-16
+--------------------------------------------------------------------------------------
+
+Changed
+~~~~~~~
+
+-  Nicer CLI output for ``ShortenedURL`` and ``DBStats`` objects.
+
+Fixed
+~~~~~
+
+-  ``NoSectionError`` with blank configuration file
+   (`#2 <https://github.com/RazerM/yourls-python/issues/2>`__)
+-  Short option for ``--start`` when calling ``yourls stats`` changed to
+   ``-b`` to prevent conflict with ``-s`` for ``--simple``
+   (`#1 <https://github.com/RazerM/yourls-python/issues/1>`__).
+
+`1.1.1 <https://github.com/RazerM/yourls-python/compare/1.1.0...1.1.1>`__ - 2015-11-15
+--------------------------------------------------------------------------------------
 
 Fixed
 ~~~~~
@@ -15,8 +32,8 @@ Fixed
 -  Fixed CLI on Python 2 due to incorrect use of ``ConfigParser``.
 -  Incorrect ``ConfigParser`` import.
 
-`1.1.0 <https://github.com/RazerM/yourls-python/compare/1.0.1...1.1.0>`__
--------------------------------------------------------------------------
+`1.1.0 <https://github.com/RazerM/yourls-python/compare/1.0.1...1.1.0>`__ - 2015-11-15
+--------------------------------------------------------------------------------------
 
 Added
 ~~~~~
@@ -47,7 +64,7 @@ Changed
    ``YOURLSAPIMixin`` to make it easier to re-use.
 -  Refactored the code for clarity.
 
-`1.0.0 <https://github.com/RazerM/yourls-python/compare/0ef60c1cef3979df819c8f7c0819f1ca052368f6...1.0.0>`__ - 2015-11-01
+`1.0.0 <https://github.com/RazerM/yourls-python/compare/01e4bf7b77738eaca1246e238266887e009e0dbb...1.0.0>`__ - 2015-11-01
 -------------------------------------------------------------------------------------------------------------------------
 
 First release.
