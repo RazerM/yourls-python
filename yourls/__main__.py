@@ -151,10 +151,10 @@ def url_stats(yourls, shorturl):
     click.echo(shorturl)
 
 
-@cli.command()
+@cli.command(help="Filter links by 'top', 'bottom', 'rand', or 'last'")
 @click.argument('filter', type=click.Choice(('top', 'bottom', 'rand', 'last')))
 @click.argument('limit', type=int)
-@click.option('--start', '-s', type=int)
+@click.option('--start', '-b', type=int)
 @click.option('--simple', '-s', is_flag=True,
               help='Print short URLs instead of full ShortenedURL objects')
 @click.pass_obj
