@@ -1,7 +1,9 @@
 # Change Log
 
 ## [Unreleased][unreleased]
-N/A
+### Fixed
+- `NoSectionError` with blank configuration file ([#2])
+- Short option for `--start` when calling `yourls stats` changed to `-b` to prevent conflict with `-s` for `--simple` ([#1]).
 
 ## [1.1.1]
 ### Fixed
@@ -30,7 +32,10 @@ N/A
 First release.
 
 [unreleased]: https://github.com/RazerM/yourls-python/compare/1.1.1...HEAD
-[1.1.0]: https://github.com/RazerM/yourls-python/compare/1.1.0...1.1.1
+[1.1.1]: https://github.com/RazerM/yourls-python/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/RazerM/yourls-python/compare/1.0.1...1.1.0
 [1.0.1]: https://github.com/RazerM/yourls-python/compare/1.0.0...1.0.1
-[1.0.0]: https://github.com/RazerM/yourls-python/compare/0ef60c1cef3979df819c8f7c0819f1ca052368f6...1.0.0
+[1.0.0]: https://github.com/RazerM/yourls-python/compare/01e4bf7b77738eaca1246e238266887e009e0dbb...1.0.0
+
+[#1]: https://github.com/RazerM/yourls-python/issues/1
+[#2]: https://github.com/RazerM/yourls-python/issues/2
