@@ -25,12 +25,14 @@ Options:
 """
 
 if sys.version_info >= (3, 2):
-    from configparser import ConfigParser, NoOptionError
+    from configparser import ConfigParser, NoOptionError, NoSectionError
 else:
     try:
-        from ConfigParser import SafeConfigParser as ConfigParser, NoOptionError
+        from ConfigParser import (
+            SafeConfigParser as ConfigParser, NoOptionError, NoSectionError)
     except ImportError:
-        from configparser import SafeConfigParser as ConfigParser, NoOptionError
+        from configparser import (
+            SafeConfigParser as ConfigParser, NoOptionError, NoSectionError)
 
 
 config = ConfigParser()
@@ -43,7 +45,7 @@ def config_value(name):
     def get():
         try:
             return config.get('yourls', name)
-        except NoOptionError:
+        except (NoOptionError, NoSectionError):
             return None
     return get
 
