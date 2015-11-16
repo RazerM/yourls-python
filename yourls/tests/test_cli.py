@@ -6,7 +6,7 @@ import sys
 
 import pytest
 from yourls import DBStats, ShortenedURL, YOURLSAPIError, YOURLSURLExistsError
-from yourls.__main__ import cli, main
+from yourls.__main__ import cli, format_dbstats, format_shorturl, main
 
 try:
     from unittest.mock import patch
@@ -68,11 +68,7 @@ def test_shorten(set_defaults, capsys):
         with pytest.raises(SystemExit):
             main()
         out, _ = capsys.readouterr()
-        expected = (
-            "New: ShortenedURL(shorturl='http://example.com/abcde', "
-            "url='http://google.com', title='Google', "
-            "date=datetime.datetime(2015, 10, 31, 14, 31, 4), "
-            "ip='203.0.113.0', clicks=0, keyword='abcde')\n")
+        expected = 'New: {}\n'.format(format_shorturl(shorturl))
         assert expected == out
         assert mock_shorten.call_count == 1
 
@@ -83,11 +79,7 @@ def test_shorten(set_defaults, capsys):
         with pytest.raises(SystemExit):
             main()
         out, _ = capsys.readouterr()
-        expected = (
-            "ShortenedURL(shorturl='http://example.com/abcde', "
-            "url='http://google.com', title='Google', "
-            "date=datetime.datetime(2015, 10, 31, 14, 31, 4), "
-            "ip='203.0.113.0', clicks=0, keyword='abcde')\n")
+        expected = format_shorturl(shorturl) + '\n'
         assert expected == out
         assert mock_shorten.call_count == 1
 
@@ -132,7 +124,18 @@ def test_shorten_switches(set_defaults):
             'http://google.com', '--keyword', 'keyword', '--title', 'title']
 
     patch_argv = patch.object(sys, 'argv', argv)
-    patch_shorten = patch('yourls.core.YOURLSAPIMixin.shorten', autospec=True)
+
+    shorturl = ShortenedURL(
+        shorturl='http://example.com/abcde',
+        url='http://google.com',
+        title='Google',
+        date=datetime.datetime(2015, 10, 31, 14, 31, 4),
+        ip='203.0.113.0',
+        clicks=0,
+        keyword='abcde')
+
+    patch_shorten = patch('yourls.core.YOURLSAPIMixin.shorten', autospec=True,
+                          return_value=shorturl)
 
     with patch_argv, patch_shorten as mock_shorten:
         with pytest.raises(SystemExit):
@@ -208,11 +211,7 @@ def test_url_stats(set_defaults, capsys):
         with pytest.raises(SystemExit):
             main()
         out, _ = capsys.readouterr()
-        expected = (
-            "ShortenedURL(shorturl='http://example.com/abcde', "
-            "url='http://google.com', title='Google', "
-            "date=datetime.datetime(2015, 10, 31, 14, 31, 4), "
-            "ip='203.0.113.0', clicks=0, keyword='abcde')\n")
+        expected = format_shorturl(shorturl) + '\n'
         assert expected == out
         assert mock_url_stats.call_count == 1
 
@@ -259,23 +258,10 @@ def test_stats(set_defaults, capsys):
         with pytest.raises(SystemExit):
             main()
         out, _ = capsys.readouterr()
-        expected = (
-            "DBStats(total_clicks=5000, total_links=200)\n"
+        expected = format_dbstats(stats) + '\n'
+        for link in links:
+            expected += format_shorturl(link) + '\n'
 
-            "ShortenedURL(shorturl='http://example.com/abcde', "
-            "url='http://google.com', title='Google', "
-            "date=datetime.datetime(2014, 9, 8, 20, 30, 17), "
-            "ip='203.0.113.0', clicks=789)\n"
-
-            "ShortenedURL(shorturl='http://example.com/abc45', "
-            "url='https://www.bbc.co.uk/news', title='BBC News', "
-            "date=datetime.datetime(2014, 12, 19, 16, 26, 39), "
-            "ip='203.0.113.0', clicks=1364)\n"
-
-            "ShortenedURL(shorturl='http://example.com/123de', "
-            "url='https://www.youtube.com', title='YouTube', "
-            "date=datetime.datetime(2015, 10, 9, 5, 46, 27), "
-            "ip='203.0.113.0', clicks=27)\n")
         assert expected == out
         assert mock_stats.call_count == 1
 
@@ -287,8 +273,8 @@ def test_stats(set_defaults, capsys):
         with pytest.raises(SystemExit):
             main()
         out, _ = capsys.readouterr()
-        expected = (
-            "DBStats(total_clicks=5000, total_links=200)\n"
+        expected = format_dbstats(stats) + '\n'
+        expected += (
             "http://example.com/abcde\n"
             "http://example.com/abc45\n"
             "http://example.com/123de\n")
@@ -302,7 +288,7 @@ def test_stats_switches(set_defaults):
 
     patch_argv = patch.object(sys, 'argv', argv)
     patch_stats = patch('yourls.core.YOURLSAPIMixin.stats', autospec=True,
-                        return_value=([], None))
+                        return_value=([], DBStats(0, 0)))
 
     with patch_argv, patch_stats as mock_stats:
         with pytest.raises(SystemExit):
@@ -338,6 +324,6 @@ def test_db_stats(set_defaults, capsys):
         with pytest.raises(SystemExit):
             main()
         out, _ = capsys.readouterr()
-        expected = "DBStats(total_clicks=5000, total_links=200)\n"
+        expected = format_dbstats(db_stats) + '\n'
         assert expected == out
         assert mock_db_stats.call_count == 1

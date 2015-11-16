@@ -2,7 +2,9 @@
 from __future__ import absolute_import, division, print_function
 
 import os.path
+import shutil
 import sys
+import textwrap
 from contextlib import contextmanager
 
 import click
@@ -59,6 +61,41 @@ def catch_exceptions():
         # Prevent duplicate "Error: ", because Click adds it too.
         error_msg = error_msg.replace('Error: ', '')
         raise click.ClickException(error_msg)
+
+
+def format_shorturl(shorturl):
+    title = shorturl.title.replace('"', r'\"')
+
+    # return '{s.shorturl}  {s.url}  "{title}"'.format(s=shorturl, title=title)
+    fstring = textwrap.dedent("""
+    {s.shorturl}
+      url:    {url}
+      title:  {title}
+      date:   {s.date!s}
+      IP:     {s.ip}
+      clicks: {s.clicks}
+    """).strip()
+
+    try:
+        terminal_size = shutil.get_terminal_size(fallback=(80, 20))
+        columns = terminal_size.columns
+    except AttributeError:
+        columns = 80
+
+    indent = len('  clicks: ')  # longest row
+    width = columns - indent
+    textwrapper = textwrap.TextWrapper(
+        width=width, initial_indent='', subsequent_indent=' ' * indent)
+    url = textwrapper.fill(shorturl.url)
+    # url = shorturl.url
+    title = textwrapper.fill(shorturl.title)
+
+    return fstring.format(s=shorturl, url=url, title=title)
+
+
+def format_dbstats(dbstats):
+    fstring = '{s.total_clicks} total clicks, {s.total_links} total links'
+    return fstring.format(s=dbstats)
 
 
 @click.group()
@@ -122,14 +159,16 @@ def shorten(yourls, url, keyword, title, only_new, simple):
         raise click.ClickException(exc.args[0])
 
     if simple:
-        shorturl = shorturl.shorturl
+        linkstr = shorturl.shorturl
+    else:
+        linkstr = format_shorturl(shorturl)
 
     if only_new:
         status = ''
     else:
         status = 'New: ' if new else 'Exists: '
 
-    click.echo('{status}{shorturl}'.format(status=status, shorturl=shorturl))
+    click.echo('{status}{linkstr}'.format(status=status, linkstr=linkstr))
 
 
 @cli.command()
@@ -148,7 +187,8 @@ def url_stats(yourls, shorturl):
     with catch_exceptions():
         shorturl = yourls.url_stats(shorturl)
 
-    click.echo(shorturl)
+    linkstr = format_shorturl(shorturl)
+    click.echo(linkstr)
 
 
 @cli.command(help="Filter links by 'top', 'bottom', 'rand', or 'last'")
@@ -161,11 +201,13 @@ def url_stats(yourls, shorturl):
 def stats(yourls, filter, limit, start, simple):
     with catch_exceptions():
         links, stats = yourls.stats(filter=filter, limit=limit, start=start)
-    click.echo(stats)
+    click.echo(format_dbstats(stats))
     for link in links:
         if simple:
-            link = link.shorturl
-        click.echo(link)
+            linkstr = link.shorturl
+        else:
+            linkstr = format_shorturl(link)
+        click.echo(linkstr)
 
 
 @cli.command('db-stats')
@@ -173,7 +215,7 @@ def stats(yourls, filter, limit, start, simple):
 def db_stats(yourls):
     with catch_exceptions():
         stats = yourls.db_stats()
-    click.echo(stats)
+    click.echo(format_dbstats(stats))
 
 
 def main():

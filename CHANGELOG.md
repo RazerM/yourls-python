@@ -1,6 +1,9 @@
 # Change Log
 
 ## [Unreleased][unreleased]
+### Changed
+- Nicer CLI output for `ShortenedURL` and `DBStats` objects.
+
 ### Fixed
 - `NoSectionError` with blank configuration file ([#2])
 - Short option for `--start` when calling `yourls stats` changed to `-b` to prevent conflict with `-s` for `--simple` ([#1]).
