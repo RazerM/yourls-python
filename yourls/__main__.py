@@ -66,8 +66,7 @@ def catch_exceptions():
 def format_shorturl(shorturl):
     title = shorturl.title.replace('"', r'\"')
 
-    # return '{s.shorturl}  {s.url}  "{title}"'.format(s=shorturl, title=title)
-    fstring = textwrap.dedent("""
+    fstring = textwrap.dedent(u"""
     {s.shorturl}
       url:    {url}
       title:  {title}
@@ -87,14 +86,13 @@ def format_shorturl(shorturl):
     textwrapper = textwrap.TextWrapper(
         width=width, initial_indent='', subsequent_indent=' ' * indent)
     url = textwrapper.fill(shorturl.url)
-    # url = shorturl.url
     title = textwrapper.fill(shorturl.title)
 
     return fstring.format(s=shorturl, url=url, title=title)
 
 
 def format_dbstats(dbstats):
-    fstring = '{s.total_clicks} total clicks, {s.total_links} total links'
+    fstring = u'{s.total_clicks} total clicks, {s.total_links} total links'
     return fstring.format(s=dbstats)
 
 
@@ -166,9 +164,9 @@ def shorten(yourls, url, keyword, title, only_new, simple):
     if only_new:
         status = ''
     else:
-        status = 'New: ' if new else 'Exists: '
+        status = u'New: ' if new else u'Exists: '
 
-    click.echo('{status}{linkstr}'.format(status=status, linkstr=linkstr))
+    click.echo(u'{status}{linkstr}'.format(status=status, linkstr=linkstr))
 
 
 @cli.command()
