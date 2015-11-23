@@ -1,10 +1,18 @@
 Change Log
 ==========
 
-`Unreleased <https://github.com/RazerM/yourls-python/compare/1.2.0...HEAD>`__
+`Unreleased <https://github.com/RazerM/yourls-python/compare/1.2.1...HEAD>`__
 -----------------------------------------------------------------------------
 
 N/A
+
+`1.2.1 <https://github.com/RazerM/yourls-python/compare/1.2.0...1.2.1>`__ - 2015-11-24
+--------------------------------------------------------------------------------------
+
+Fixed
+~~~~~
+
+-  Unicode handling on Python 2 in CLI.
 
 `1.2.0 <https://github.com/RazerM/yourls-python/compare/1.1.1...1.2.0>`__ - 2015-11-16
 --------------------------------------------------------------------------------------

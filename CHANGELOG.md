@@ -3,6 +3,10 @@
 ## [Unreleased][unreleased]
 N/A
 
+## [1.2.1] - 2015-11-24
+### Fixed
+- Unicode handling on Python 2 in CLI.
+
 ## [1.2.0] - 2015-11-16
 ### Changed
 - Nicer CLI output for `ShortenedURL` and `DBStats` objects.
@@ -37,7 +41,8 @@ N/A
 
 First release.
 
-[unreleased]: https://github.com/RazerM/yourls-python/compare/1.2.0...HEAD
+[unreleased]: https://github.com/RazerM/yourls-python/compare/1.2.1...HEAD
+[1.2.1]: https://github.com/RazerM/yourls-python/compare/1.2.0...1.2.1
 [1.2.0]: https://github.com/RazerM/yourls-python/compare/1.1.1...1.2.0
 [1.1.1]: https://github.com/RazerM/yourls-python/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/RazerM/yourls-python/compare/1.0.1...1.1.0
