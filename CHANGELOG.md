@@ -3,6 +3,11 @@
 ## [Unreleased][unreleased]
 N/A
 
+## [1.2.2] - 2016-01-29
+### Fixed
+- Exceptions used incorrect `super()` calls.
+- Conditional dependencies now work with wheel format.
+
 ## [1.2.1] - 2015-11-24
 ### Fixed
 - Unicode handling on Python 2 in CLI.
@@ -41,7 +46,8 @@ N/A
 
 First release.
 
-[unreleased]: https://github.com/RazerM/yourls-python/compare/1.2.1...HEAD
+[unreleased]: https://github.com/RazerM/yourls-python/compare/1.2.2...HEAD
+[1.2.2]: https://github.com/RazerM/yourls-python/compare/1.2.1...1.2.2
 [1.2.1]: https://github.com/RazerM/yourls-python/compare/1.2.0...1.2.1
 [1.2.0]: https://github.com/RazerM/yourls-python/compare/1.1.1...1.2.0
 [1.1.1]: https://github.com/RazerM/yourls-python/compare/1.1.0...1.1.1
