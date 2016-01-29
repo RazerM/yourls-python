@@ -13,19 +13,19 @@ class YOURLSAPIError(Exception):
 class YOURLSHTTPError(YOURLSAPIError, HTTPError):
     """Raised when YOURLS API returns HTTP error with response."""
     def __init__(self, *args, **kwargs):
-        super(YOURLSAPIError, self).__init__(*args, **kwargs)
+        super(YOURLSHTTPError, self).__init__(*args, **kwargs)
 
 
 class YOURLSNoLoopError(YOURLSHTTPError):
     """Raised when trying to shorten a shortened URL."""
     def __init__(self, *args, **kwargs):
-        super(YOURLSAPIError, self).__init__(*args, **kwargs)
+        super(YOURLSNoLoopError, self).__init__(*args, **kwargs)
 
 
 class YOURLSNoURLError(YOURLSHTTPError):
     """Raised when trying to shorten an empty URL."""
     def __init__(self, *args, **kwargs):
-        super(YOURLSAPIError, self).__init__(*args, **kwargs)
+        super(YOURLSNoURLError, self).__init__(*args, **kwargs)
 
 
 class YOURLSKeywordExistsError(YOURLSAPIError):
@@ -38,7 +38,7 @@ class YOURLSKeywordExistsError(YOURLSAPIError):
     """
     def __init__(self, *args, **kwargs):
         self.keyword = kwargs.pop('keyword')
-        super(YOURLSAPIError, self).__init__(*args, **kwargs)
+        super(YOURLSKeywordExistsError, self).__init__(*args, **kwargs)
 
 
 class YOURLSURLExistsError(YOURLSAPIError):
@@ -50,4 +50,4 @@ class YOURLSURLExistsError(YOURLSAPIError):
     """
     def __init__(self, *args, **kwargs):
         self.url = kwargs.pop('url')
-        super(YOURLSAPIError, self).__init__(*args, **kwargs)
+        super(YOURLSURLExistsError, self).__init__(*args, **kwargs)
