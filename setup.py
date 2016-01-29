@@ -19,16 +19,16 @@ DESCRIPTION = metadata['description']
 
 AUTHOR, EMAIL = re.match(r'(.*) <(.*)>', AUTHOR_EMAIL).groups()
 
-requires = [
+requires = {
     'click',
     'logbook>=0.10.0',
     'represent>=1.4.0',
     'requests',
     'six',
-]
+}
 
 extras_require = {
-    'dev': [
+    'dev': {
         'coverage',
         'doc8',
         'flake8',
@@ -45,11 +45,10 @@ extras_require = {
         'sphinxcontrib-spelling',
         'tox',
         'watchdog',
-    ],
+    },
 }
 
-if sys.version_info[:2] < (3, 3):
-    extras_require['dev'].append('mock')
+extras_require['dev:python_version<"3.3"'] = {'mock'}
 
 setup(
     name='yourls',
