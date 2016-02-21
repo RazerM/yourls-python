@@ -1,0 +1,6 @@
+include .coveragerc
+include CHANGELOG.md
+include LICENSE.txt
+include tox.ini
+recursive-include docs *
+prune docs/_build
