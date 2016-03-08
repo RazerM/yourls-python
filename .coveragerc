@@ -2,6 +2,7 @@
 branch=True
 source=
     yourls
+    tests
 
 [paths]
 source=
