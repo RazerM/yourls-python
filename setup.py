@@ -21,13 +21,13 @@ DESCRIPTION = metadata['description']
 
 AUTHOR, EMAIL = re.match(r'(.*) <(.*)>', AUTHOR_EMAIL).groups()
 
-requires = {
+requires = [
     'click',
     'logbook>=0.10.0',
     'represent>=1.4.0',
     'requests',
     'six',
-}
+]
 
 
 def add_to_extras(extras_require, dest, source):
@@ -44,12 +44,12 @@ def add_to_extras(extras_require, dest, source):
 
 extras_require = defaultdict(set)
 
-extras_require['test'] = {
+extras_require['test'] = [
     'pytest>=2.7.3',
     'responses',
-}
+]
 
-extras_require['dev'] = {
+extras_require['dev'] = [
     'coverage',
     'doc8',
     'flake8',
@@ -64,9 +64,9 @@ extras_require['dev'] = {
     'sphinxcontrib-spelling',
     'tox',
     'watchdog',
-}
+]
 
-extras_require['test:python_version<"3.3"'] = {'mock'}
+extras_require['test:python_version<"3.3"'] = ['mock']
 
 add_to_extras(extras_require, 'dev', 'test')
 
