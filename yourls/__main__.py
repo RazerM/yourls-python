@@ -219,5 +219,6 @@ def db_stats(yourls):
 def main():
     cli(prog_name='yourls')
 
+
 if __name__ == '__main__':
     main()
