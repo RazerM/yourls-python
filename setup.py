@@ -30,18 +30,6 @@ requires = [
 ]
 
 
-def add_to_extras(extras_require, dest, source):
-    """Add dependencies from `source` extra to `dest` extra, handling
-    conditional dependencies.
-    """
-    for key, deps in list(extras_require.items()):
-        extra, _, condition = key.partition(':')
-        if extra == source:
-            if condition:
-                extras_require[dest + ':' + condition] |= deps
-            else:
-                extras_require[dest] |= deps
-
 extras_require = defaultdict(set)
 
 extras_require['test'] = [
@@ -64,11 +52,12 @@ extras_require['dev'] = [
     'sphinxcontrib-spelling',
     'tox',
     'watchdog',
+    'pytest>=2.7.3',
+    'responses',
 ]
 
 extras_require['test:python_version<"3.3"'] = ['mock']
-
-add_to_extras(extras_require, 'dev', 'test')
+extras_require['dev:python_version<"3.3"'] = ['mock']
 
 extras_require = dict(extras_require)
 
