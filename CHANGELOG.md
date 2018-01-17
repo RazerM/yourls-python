@@ -3,6 +3,11 @@
 ## [Unreleased][unreleased]
 N/A
 
+## [1.2.3][]
+### Fixed
+- `yourls` can be installed with setuptools v38.0+, which requires
+  `install_requires` in `setup.py` to be ordered.
+
 ## [1.2.2] - 2016-01-29
 ### Fixed
 - Exceptions used incorrect `super()` calls.
@@ -46,7 +51,8 @@ N/A
 
 First release.
 
-[unreleased]: https://github.com/RazerM/yourls-python/compare/1.2.2...HEAD
+[unreleased]: https://github.com/RazerM/yourls-python/compare/1.2.3...HEAD
+[1.2.3]: https://github.com/RazerM/yourls-python/compare/1.2.2...1.2.3
 [1.2.2]: https://github.com/RazerM/yourls-python/compare/1.2.1...1.2.2
 [1.2.1]: https://github.com/RazerM/yourls-python/compare/1.2.0...1.2.1
 [1.2.0]: https://github.com/RazerM/yourls-python/compare/1.1.1...1.2.0
